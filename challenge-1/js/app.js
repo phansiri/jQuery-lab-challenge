@@ -15,6 +15,23 @@
 
 // This function is the equivalent of document ready
 $(function() {
+	$('#countdownButton').click(function() {
+		var startTime = Date.now();
+		var regEx = new RegExp('^\\d+$');
+		var inputValue = $('#time').val();
+		var timer = window.setInterval(function() {
+			if (!regEx.test(inputValue)) {
+				throw new Error('You need a number and not something else!');
+				window.clearInterval(timer);
+			}
+			var elapsedTime = inputValue--/*Math.floor((Date.now() - startTime) / 1000)*/;
+			$('#displayedTimer').text(elapsedTime + 's');
+
+			if (elapsedTime <= 0) {
+				window.clearInterval(timer);
+			}
+		}, 1000);
+	});
 	/* Hints:
 	 		-- Start by registering the click event for the button.
 	 		-- You will need to keep track of the number of second somewhere.
@@ -26,6 +43,7 @@ $(function() {
 });
 
 function countDown() {
+
 	// Hint: if time < 0, stop the countdown, otherwise refresh the timer display & call createConfetti().
 	// Hint: to stop countdown, look up clearInterval() function.
 }
